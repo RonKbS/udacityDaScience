@@ -33,12 +33,25 @@ def fix_turnstile_data(filenames):
     Sample updated file: solution_turnstile_110528.txt
     '''
     for name in filenames:
-        f_in = open(name, 'rb')
-        f_out = open('updated_'+ name, 'wb')
+        f_in = open(name, 'r')
+        f_out = open('updated_'+ name, 'w')
         reader_in = csv.reader(f_in, delimiter = ',')
         writer_out = csv.writer(f_out, delimiter = ',')
         for line in reader_in:
-            line_1 = [line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7]]
+            y = 0
+            x = 13
+            line_1 = []
+            line_2 = [line[0], line[1], line[2]]
+            while y < 8:
+                line_1.append(line[y])
+                y += 1
             writer_out.writerow(line_1)
+            while y < len(line): 
+                while y > 7 and y < len(line) and y < x:
+                    line_2.append(line[y])
+                    y += 1
+                writer_out.writerow(line_2)
+                line_2 = [line[0], line[1], line[2]]
+                x += 5
         f_in.close()
         f_out.close()
